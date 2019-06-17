@@ -60,14 +60,19 @@ const drawRoute = (ctx, route, yIndex) => {
   var fromX = xPositionForIndex(route.from), // Starting position for route
     fromY = yPositionForIndex(yIndex),
     toX = xPositionForIndex(route.to), // Ending position for route
-    toY = yPositionForIndex(yIndex + 1)
+    toY = yPositionForIndex(yIndex + 1) // НЕ ВЕРНО!!!
 
   ctx.strokeStyle = branchColor(route.branch) // Gets a colour based on the branch no.
   ctx.lineWidth = LINE_WIDTH
 
   ctx.beginPath()
   ctx.moveTo(fromX, fromY) // Place the cursor at the start point
-  ctx.lineTo(toX, toY) // Draw a line to the finish point
+
+  if (fromX === toX) {
+    ctx.lineTo(toX, toY) // Draw a line to the finish point
+  } else {
+    ctx.bezierCurveTo(fromX - X_STEP / 4, fromY + Y_STEP / 2, toX + X_STEP / 4, toY - Y_STEP / 2, toX, toY)
+  }
 
   ctx.stroke()
 }
@@ -84,51 +89,16 @@ const drawGraph = (ctx, graphNodes) => {
 
 const graph = [
   {
-    ref: 'aabbcc1', // Commit ref, not displayed in the graph but helpful for debugging
-    position: 1, // X-axis location for the commit in this row
-    routes: [
-      {
-        from: 1, // X-axis of the starting location for the branch line
-        to: 1, // X-axis for the finishing location for the branch line
-        branch: 1 // Branch number (used for colouring the line)
-      }
-    ]
-  },
-  {
-    ref: 'ddeeff1', // Commit ref, not displayed in the graph but helpful for debugging
     position: 0, // X-axis location for the commit in this row
     routes: [
       {
         from: 0, // X-axis of the starting location for the branch line
-        to: 0, // X-axis for the finishing location for the branch line
-        branch: 0 // Branch number (used for colouring the line)
-      }
-    ]
-  },
-  {
-    ref: 'aabbcc2', // Commit ref, not displayed in the graph but helpful for debugging
-    position: 1, // X-axis location for the commit in this row
-    routes: [
-      {
-        from: 1, // X-axis of the starting location for the branch line
-        to: 1, // X-axis for the finishing location for the branch line
-        branch: 1 // Branch number (used for colouring the line)
-      }
-    ]
-  },
-  {
-    ref: 'ddeeff2', // Commit ref, not displayed in the graph but helpful for debugging
-    position: 1, // X-axis location for the commit in this row
-    routes: [
-      {
-        from: 0, // X-axis of the starting location for the branch line
         to: 1, // X-axis for the finishing location for the branch line
         branch: 0 // Branch number (used for colouring the line)
       }
     ]
   },
   {
-    ref: 'ddeeff3', // Commit ref, not displayed in the graph but helpful for debugging
     position: 1, // X-axis location for the commit in this row
     routes: [
       {
@@ -138,6 +108,36 @@ const graph = [
       }
     ]
   }
+  // {
+  //   position: 1, // X-axis location for the commit in this row
+  //   routes: [
+  //     {
+  //       from: 1, // X-axis of the starting location for the branch line
+  //       to: 1, // X-axis for the finishing location for the branch line
+  //       branch: 0 // Branch number (used for colouring the line)
+  //     }
+  //   ]
+  // },
+  // {
+  //   position: 0, // X-axis location for the commit in this row
+  //   routes: [
+  //     {
+  //       from: 0, // X-axis of the starting location for the branch line
+  //       to: 0, // X-axis for the finishing location for the branch line
+  //       branch: 1 // Branch number (used for colouring the line)
+  //     }
+  //   ]
+  // }
+  // {
+  //   position: 1, // X-axis location for the commit in this row
+  //   routes: [
+  //     {
+  //       from: 1, // X-axis of the starting location for the branch line
+  //       to: 1, // X-axis for the finishing location for the branch line
+  //       branch: 0 // Branch number (used for colouring the line)
+  //     }
+  //   ]
+  // }
 ]
 
 export const GitLog = () => {

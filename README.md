@@ -9,3 +9,10 @@ Arranging the branches is simply a case of following the parents of a commit. Wh
 With the branch and commit details figured out we know that each iteration will involve drawing a commit and drawing a line for the branch that commit is on. However, we don't necessarily know at this point how long it will be until we meet the next commit on our branch. To deal with this we need to keep a list of currently active branches. Then, every iteration where nothing happens to a branch we can draw a straight line to continue it.
 
 It can't be guaranteed that all branches that we render will have their current commit included, makes it difficult to determine the branch name. Since the branch name is never displayed on the graph itself we generate sequential numbers to represent branches whenever we see a new one.
+
+https://www.codebasehq.com/blog/building-commit-graphs
+
+https://github.com/tclh123/commits-graph/blob/master/js/src/jquery.commits-graph.js
+https://github.com/tclh123/commits-graph/blob/master/git/commits_graph.py
+
+https://github.com/jsdf/react-commits-graph/blob/master/src/generate-graph-data.coffee
