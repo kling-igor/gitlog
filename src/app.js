@@ -1,23 +1,16 @@
 import React, { PureComponent } from 'react'
 
-import styled, { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 
 import { GlobalStyle } from './style'
 
-import { QuickSelect } from './quickselect/component'
-
+import { GitLog } from './gitlog'
 export default class App extends PureComponent {
   render() {
     return (
       <>
         <GlobalStyle />
-        <QuickSelect
-          items={['alpha', 'bravo', 'charlie', 'delta']}
-          darkTheme={false}
-          onClosed={() => {
-            console.log('onClosed')
-          }}
-        />
+        <GitLog />
       </>
     )
   }
