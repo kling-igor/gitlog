@@ -86,7 +86,7 @@ const drawGraph = (ctx, graphNodes) => {
     drawCommit(ctx, node, yIndex)
   })
 }
-
+/*
 const graph = [
   {
     position: 0, // X-axis location for the commit in this row
@@ -138,6 +138,82 @@ const graph = [
   //     }
   //   ]
   // }
+]
+*/
+
+const graph = [
+  {
+    sha: '5fcbfdb998b69bcec729f79f346d34e8f20c642f',
+    offset: 0,
+    branch: 0,
+    routes: [[0, 0, 0]]
+  },
+  {
+    sha: 'e8438a0217eff657ac47cec2816003c16182b653',
+    offset: 1,
+    branch: 1,
+    routes: [[0, 0, 0], [1, 1, 1]]
+  },
+  {
+    sha: '0f2eeef1329333084a158541d80e6fc538462a48',
+    offset: 1,
+    branch: 1,
+    routes: [[0, 0, 0], [1, 1, 1]]
+  },
+  {
+    sha: '7d8835ec29452540b646e192937de2bc1a49cbaf',
+    offset: 1,
+    branch: 1,
+    routes: [[0, 0, 0], [1, 1, 1]]
+  },
+  {
+    sha: '01724ba5aafc3c3a5df3d43d24d7c4d2fdcb7d9c',
+    offset: 1,
+    branch: 1,
+    routes: [[0, 0, 0], [1, 1, 1]]
+  },
+  {
+    sha: '53797fdfcaa1d06a32f9abd61360fb354ed51929',
+    offset: 1,
+    branch: 1,
+    routes: [[0, 0, 0], [1, 1, 1]]
+  },
+  {
+    sha: '41ad84fa675406e30854835b2ebde8aa61e226b6',
+    offset: 1,
+    branch: 1,
+    routes: [[0, 0, 0], [1, 1, 1]]
+  },
+  {
+    sha: 'efaf2871c5e3086482b93aa2c27547a0854e000e',
+    offset: 1,
+    branch: 1,
+    routes: [[0, 0, 0], [1, 1, 1]]
+  },
+  {
+    sha: 'd50f88b728a82bb6451e0f07f1c53842c8b9aec1',
+    offset: 1,
+    branch: 1,
+    routes: [[0, 0, 0], [1, 1, 1]]
+  },
+  {
+    sha: '76708c336be8e3b094d963ce68ff5680bdd82866',
+    offset: 1,
+    branch: 1,
+    routes: [[0, 0, 0], [1, 1, 1]]
+  },
+  {
+    sha: '3d32a13255de9b37c5b0b568619d1eeebf5ab06d',
+    offset: 1,
+    branch: 1,
+    routes: [[0, 0, 0], [1, 1, 1]]
+  },
+  {
+    sha: 'f718b0207ca5212f728dd2b879d0a6515976e470',
+    offset: 1,
+    branch: 1,
+    routes: [[0, 0, 0], [1, 1, 1]]
+  }
 ]
 
 export const GitLog = () => {

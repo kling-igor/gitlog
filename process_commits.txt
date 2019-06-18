@@ -1,0 +1,82 @@
+def generate_graph_data(commits):
+    """Generate graph data.
+    :param commits: a list of commit, which should have
+        `sha`, `parents` properties.
+    :returns: data nodes, a json list of
+        [
+          sha,
+          [offset, branch], //dot
+          [
+            [from, to, branch],  // route 1
+            [from, to, branch],  // route 2
+            [from, to, branch],
+          ]  // routes
+        ],  // node
+    """
+
+    nodes = []
+
+    # массив индексов веток (определяет положение коммита относительно левого края)
+    branch_idx = [0]
+
+    # для продолжений коммитов (прямая линия, идущая ниже пока рядом коммиты других веток)
+    reserve = []
+
+    # словарь sha -> индекс ветки
+    branches = {}
+
+    def get_branch(sha):
+
+        # если не нашлось ветки в словаре
+        if branches.get(sha) is None:
+            # заносим ветку коммита в словарь
+            branches[sha] = branch_idx[0]
+
+            reserve.append(branch_idx[0])
+
+            branch_idx[0] += 1
+        return branches[sha]
+
+    for commit in commits:
+      # получаем индекс ветки
+        branch = get_branch(commit.sha)
+        # кол-во предков
+        n_parents = len(commit.parents)
+
+        # какое-то смещение для ветки
+        offset = reserve.index(branch)
+
+        routes = []
+
+        if n_parents == 1:
+            # create branch
+            if branches.get(commit.parents[0]) is not None:
+                routes += [[i + offset + 1, i + offset + 1 - 1, b]
+                           for i, b in enumerate(reserve[offset + 1:])]
+                routes += [[i, i, b]
+
+                           for i, b in enumerate(reserve[:offset])]
+                reserve.remove(branch)
+                routes.append([offset, reserve.index(
+                    branches[commit.parents[0]]), branch])
+            # straight
+            else:
+                # прямая линия
+                routes += [[i, i, b] for i, b in enumerate(reserve)]
+                branches[commit.parents[0]] = branch
+
+        # merge branch
+        elif n_parents == 2:
+            branches[commit.parents[0]] = branch
+            routes += [[i, i, b] for i, b in enumerate(reserve)]
+            other_branch = get_branch(commit.parents[1])
+            routes.append([offset, reserve.index(other_branch), other_branch])
+
+        node = _make_node(commit.sha, offset, branch, routes)
+        nodes.append(node)
+
+    return json.dumps(nodes)
+
+
+def _make_node(sha, offset, branch, routes):
+    return [sha, [offset, branch], routes]
