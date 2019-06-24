@@ -1,166 +1,114 @@
-const commits = [
-  {
-    hashes: {
-      commit: '5fcbfdb998b69bcec729f79f346d34e8f20c642f',
-      tree: 'e24d310f713c2d2cb148810782d1bf872220b9f6',
-      parents: 'e8438a0217eff657ac47cec2816003c16182b653'
-    },
-    author: { date: '2017-06-05 17:08:25 +0400', name: 'Андрей Парваткин', email: 'parvatkinaa@altarix.ru' },
-    committer: { date: '2017-06-05 17:08:25 +0400', name: 'Андрей Парваткин', email: 'parvatkinaa@altarix.ru' }
-  },
-  {
-    hashes: {
-      commit: 'e8438a0217eff657ac47cec2816003c16182b653',
-      tree: '89d9d95db7261ee05d77cea7b93588c923a6cde8',
-      parents: '0f2eeef1329333084a158541d80e6fc538462a48'
-    },
-    author: { date: '2017-06-02 15:02:14 +0400', name: 'Fixer', email: 'fixer@MacBook-Pro-Inna.local' },
-    committer: { date: '2017-06-02 15:02:14 +0400', name: 'Fixer', email: 'fixer@MacBook-Pro-Inna.local' }
-  },
-  {
-    hashes: {
-      commit: '0f2eeef1329333084a158541d80e6fc538462a48',
-      tree: '4d5be8e10ed6ffe87496197b8f9d4adc96652526',
-      parents: '7d8835ec29452540b646e192937de2bc1a49cbaf'
-    },
-    author: { date: '2017-06-02 12:04:06 +0400', name: 'Андрей Парваткин', email: 'parvatkinaa@altarix.ru' },
-    committer: { date: '2017-06-02 12:04:11 +0400', name: 'Андрей Парваткин', email: 'parvatkinaa@altarix.ru' }
-  },
-  {
-    hashes: {
-      commit: '7d8835ec29452540b646e192937de2bc1a49cbaf',
-      tree: '0b6c1a290ccf6f49dbe624c199c463cfd1cdbbd4',
-      parents: '01724ba5aafc3c3a5df3d43d24d7c4d2fdcb7d9c'
-    },
-    author: { date: '2017-06-01 20:16:37 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' },
-    committer: { date: '2017-06-01 20:16:37 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' }
-  },
-  {
-    hashes: {
-      commit: '01724ba5aafc3c3a5df3d43d24d7c4d2fdcb7d9c',
-      tree: 'dc442d86e5bb6c9d84b31ab7d19e0aa649182b50',
-      parents: '53797fdfcaa1d06a32f9abd61360fb354ed51929'
-    },
-    author: { date: '2017-06-01 19:16:30 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' },
-    committer: { date: '2017-06-01 19:16:30 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' }
-  },
-  {
-    hashes: {
-      commit: '53797fdfcaa1d06a32f9abd61360fb354ed51929',
-      tree: '4429b5265b2892bab45a732cb1c192310c19409a',
-      parents: '41ad84fa675406e30854835b2ebde8aa61e226b6'
-    },
-    author: { date: '2017-06-01 18:18:11 +0400', name: 'Андрей Парваткин', email: 'parvatkinaa@altarix.ru' },
-    committer: { date: '2017-06-01 18:18:11 +0400', name: 'Андрей Парваткин', email: 'parvatkinaa@altarix.ru' }
-  },
-  {
-    hashes: {
-      commit: '41ad84fa675406e30854835b2ebde8aa61e226b6',
-      tree: 'b68de5adbeb7a715350edbe5c2abb442d964e7c3',
-      parents: 'efaf2871c5e3086482b93aa2c27547a0854e000e'
-    },
-    author: { date: '2017-05-31 13:00:09 +0400', name: 'Андрей Парваткин', email: 'parvatkinaa@altarix.ru' },
-    committer: { date: '2017-05-31 13:00:09 +0400', name: 'Андрей Парваткин', email: 'parvatkinaa@altarix.ru' }
-  },
-  {
-    hashes: {
-      commit: 'efaf2871c5e3086482b93aa2c27547a0854e000e',
-      tree: '673f8324d10855d3bdb05621618e910e4a324b19',
-      parents: 'd50f88b728a82bb6451e0f07f1c53842c8b9aec1'
-    },
-    author: { date: '2017-05-26 16:30:33 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' },
-    committer: { date: '2017-05-26 16:30:33 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' }
-  },
-  {
-    hashes: {
-      commit: 'd50f88b728a82bb6451e0f07f1c53842c8b9aec1',
-      tree: '08645fe39119091fa71bf0d1e72d65d6ed794851',
-      parents: '76708c336be8e3b094d963ce68ff5680bdd82866'
-    },
-    author: { date: '2017-05-24 20:12:48 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' },
-    committer: { date: '2017-05-24 20:12:48 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' }
-  },
-  {
-    hashes: {
-      commit: '76708c336be8e3b094d963ce68ff5680bdd82866',
-      tree: '41329061b2487c4a12efc8dbff2f02c3699d7576',
-      parents: '3d32a13255de9b37c5b0b568619d1eeebf5ab06d'
-    },
-    author: { date: '2017-05-24 19:58:58 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' },
-    committer: { date: '2017-05-24 19:58:58 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' }
-  },
-  {
-    hashes: {
-      commit: '3d32a13255de9b37c5b0b568619d1eeebf5ab06d',
-      tree: 'a2b3be4c19c172c584025838dfe10ee25606564c',
-      parents: 'f718b0207ca5212f728dd2b879d0a6515976e470'
-    },
-    author: { date: '2017-05-24 19:49:39 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' },
-    committer: { date: '2017-05-24 19:49:39 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' }
-  },
-  {
-    hashes: {
-      commit: 'f718b0207ca5212f728dd2b879d0a6515976e470',
-      tree: '0bb23996d6d1ff31dcdfb8b45e7d013955f99c84',
-      parents: ''
-    },
-    author: { date: '2017-05-24 15:22:56 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' },
-    committer: { date: '2017-05-24 15:22:56 +0400', name: 'Alexey Sadykov', email: 'alexey.sadykov@altarix.ru' }
-  }
-] //.reverse()
+// const _commits = [
+//   [
+//     'e0d173f9d2ece40cc21319bb9e8ee1c934a997d4',
+//     ['c4c0cbffb08e0ff69bf3289a12774a5c49e32f28', '0b277977ed6ea0a4a4adcf57bcfd420ed75a679c']
+//   ],
+//   [
+//     '0b277977ed6ea0a4a4adcf57bcfd420ed75a679c',
+//     ['5a3b3fd85225695d801eae1f2508cb5bf6caa56a', 'c4c0cbffb08e0ff69bf3289a12774a5c49e32f28']
+//   ],
+//   [
+//     'c4c0cbffb08e0ff69bf3289a12774a5c49e32f28',
+//     ['8a87915da94c7eb8f348291d7c7e102fa6d041f4', 'f3c22d7490f391d2cfebf7096ba6f56c01695425']
+//   ],
+//   ['f3c22d7490f391d2cfebf7096ba6f56c01695425', ['e8e3240365210045b99e1616fce021e954c54c6c']],
+//   [
+//     '8a87915da94c7eb8f348291d7c7e102fa6d041f4',
+//     ['e8e3240365210045b99e1616fce021e954c54c6c', '7155f00eb096820f209bca7ddfd310df101561ae']
+//   ],
+//   ['7155f00eb096820f209bca7ddfd310df101561ae', ['e8e3240365210045b99e1616fce021e954c54c6c']],
+//   ['5a3b3fd85225695d801eae1f2508cb5bf6caa56a', ['e8e3240365210045b99e1616fce021e954c54c6c']],
+//   [
+//     'e8e3240365210045b99e1616fce021e954c54c6c',
+//     ['30d6af421b202f5162951f52424733140ccd02b9', 'af94fec43f3b4f242c30863e22618e04a12aa909']
+//   ],
+//   ['af94fec43f3b4f242c30863e22618e04a12aa909', ['e2fc5947d12f2e52c7f975de6de25d3c753822c8']],
+//   ['e2fc5947d12f2e52c7f975de6de25d3c753822c8', ['30d6af421b202f5162951f52424733140ccd02b9']],
+//   [
+//     '30d6af421b202f5162951f52424733140ccd02b9',
+//     ['08306420435b990de013f051a28efec2810cf0eb', '2f5b2df082fc5bdd6acd72e57a833d508d51eb55']
+//   ],
+//   ['2f5b2df082fc5bdd6acd72e57a833d508d51eb55', ['08306420435b990de013f051a28efec2810cf0eb']],
+//   [
+//     '08306420435b990de013f051a28efec2810cf0eb',
+//     ['c798b2fedb2e6aad7c92f9edfe85b1dda2954c94', '60a72365cfedc932c66527df34c6bdd8a2e8057a']
+//   ],
+//   ['60a72365cfedc932c66527df34c6bdd8a2e8057a', ['371e598b83a6cee023d9cb5597f25732cc2d3986']],
+//   ['371e598b83a6cee023d9cb5597f25732cc2d3986', ['c798b2fedb2e6aad7c92f9edfe85b1dda2954c94']],
+//   [
+//     'c798b2fedb2e6aad7c92f9edfe85b1dda2954c94',
+//     ['fb9d6bbb5e07426913176523b216e0431095b38c', '964975c951ce0e9a8b1be72b90bf298b6bf9694e']
+//   ],
+//   [
+//     '964975c951ce0e9a8b1be72b90bf298b6bf9694e',
+//     ['5d3fa4c6800330d91ac66142699247457bbc3d74', '891c406f69190bb835b0fae68383c5772e593cb0']
+//   ],
+//   [
+//     'fb9d6bbb5e07426913176523b216e0431095b38c',
+//     ['5d3fa4c6800330d91ac66142699247457bbc3d74', '891c406f69190bb835b0fae68383c5772e593cb0']
+//   ],
+//   [
+//     '891c406f69190bb835b0fae68383c5772e593cb0',
+//     ['659d53056f6a09be3b0a912480dd2faa681b9099', '5d3fa4c6800330d91ac66142699247457bbc3d74']
+//   ],
+//   [
+//     '5d3fa4c6800330d91ac66142699247457bbc3d74',
+//     ['981d0c805baffe086307fd934fc2a71abfa7b6d7', 'a1fadd82de4251c3e529465869c4ea03a38aab61']
+//   ],
+//   [
+//     'a1fadd82de4251c3e529465869c4ea03a38aab61',
+//     ['2ec23c99d59519fbec24b99ef4a4995f29b8dc20', '1f9bac11b37293ffcb2dc81adc84d2cf829737e7']
+//   ]
+// ]
 
-const branchIndex = [0]
+const commits = [['A', ['B']], ['C', ['D']], ['B', ['E']], ['F', ['E']], ['D', ['E']], ['E', ['H']]]
+
+let branchIndex = 0
 const reserve = []
 const branches = {}
 
 const getBranch = sha => {
-  if (!branches[sha]) {
-    branches[sha] = branchIndex[0]
-    reserve.push(branchIndex[0])
-    branchIndex[0] += 1
+  if (branches[sha] == null) {
+    branches[sha] = branchIndex
+    reserve.push(branchIndex)
+    branchIndex += 1
   }
+
   return branches[sha]
 }
 
+const fillRoutes = (from, to, iterable) => iterable.map((branch, index) => [from(index), to(index), branch])
+
 const nodes = commits.map(commit => {
-  const branch = getBranch(commit.hashes.commit)
-  const parents = commit.hashes.parents.split(' ')
+  const [sha, parents] = commit
+  const [parent, otherParent] = parents
+
+  const branch = getBranch(sha)
   const offset = reserve.indexOf(branch)
-  const routes = []
+  let routes = []
 
   if (parents.length === 1) {
-    if (branches[parents[0]] != null) {
+    if (branches[parent] != null) {
       // create branch
-      const iterable = reserve.slice(offset + 1)
-      for (let i = 0; i < iterable.length; i++) {
-        routes.push([i + offset + 1, i + offset + 1 - 1, iterable[i]])
-      }
-      const iterable1 = reserve.slice(0, offset)
-      for (let i = 0; i < iterable1.length; i++) {
-        routes.push([i, i, iterable1[i]])
-      }
+      routes = [
+        ...fillRoutes(i => i + offset + 1, i => i + offset + 1 - 1, reserve.slice(offset + 1)),
+        ...fillRoutes(i => i, i => i, reserve.slice(0, offset))
+      ]
 
       reserve.splice(reserve.indexOf(branch), 1)
-
-      routes.push([offset, reserve.indexOf(branches[parents[0]]), branch])
+      routes = [[offset, reserve.indexOf(branches[parent]), branch]]
     } else {
       // straight
-      for (let i = 0; i < reserve.length; i++) {
-        routes.push([i, i, reserve[i]])
-      }
-      branches[parents[0]] = branch
+      routes = [...fillRoutes(i => i, i => i, reserve)]
+      branches[parent] = branch
     }
   } else if (parents.length === 2) {
     // merge branch
-    branches[parents[0]] = branch
-    for (let i = 0; i < reserve.length; i++) {
-      routes.push([i, i, reserve[i]])
-    }
-    const otherBranch = getBranch(parents[1])
-    routes.push([offset, reserve.indexOf(otherBranch), otherBranch])
+    branches[parent] = branch
+    routes = [...fillRoutes(i => i, i => i, reserve), [offset, reserve.indexOf(otherBranch), getBranch(otherParent)]]
   }
 
-  return { sha: commit.hashes.commit, offset, branch, routes }
+  return { sha, offset, branch, routes }
 })
 
 console.log(JSON.stringify(nodes))
