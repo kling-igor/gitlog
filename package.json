@@ -2,7 +2,7 @@
   "name": "gitlog",
   "version": "0.0.1",
   "description": "Visualize git log",
-  "main": "src/index.js",
+  "main": "src/process_commits.js",
   "scripts": {
     "web": "webpack-dev-server --mode development --env.dev --hot",
     "gitlog": "node -r @babel/register src/node.js",
