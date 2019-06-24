@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 
-const X_STEP = 10
+const X_STEP = 15
 const Y_STEP = 30
 
 const CANVAS_WIDTH = 512
@@ -8,45 +8,37 @@ const CANVAS_HEIGHT = 512
 const LINE_WIDTH = 2
 const COMMIT_RADIUS = 5
 
-const branchColor = branch => {
-  return (
-    [
-      '#0098d4',
-      '#b36305',
-      '#e32017',
-      '#ffd300',
-      '#00782a',
-      '#f3a9bb',
-      '#a0a5a9',
-      '#9b0056',
-      '#003688',
-      '#000000',
-      '#95cdba',
-      '#00a4a7',
-      '#ee7c0e',
-      '#84b817'
-    ][branch] || 'black'
-  )
-}
+const branchColor = branch =>
+  [
+    '#0098d4',
+    '#b36305',
+    '#e32017',
+    '#ffd300',
+    '#00782a',
+    '#f3a9bb',
+    '#a0a5a9',
+    '#9b0056',
+    '#003688',
+    '#000000',
+    '#95cdba',
+    '#00a4a7',
+    '#ee7c0e',
+    '#84b817'
+  ][branch] || 'black'
 
-const yPositionForIndex = yIndex => {
-  return (yIndex + 0.5) * Y_STEP
-}
+const yPositionForIndex = yIndex => (yIndex + 0.5) * Y_STEP
 
-const xPositionForIndex = xIndex => {
-  // Subtract the position from the width to right-align our elements
-  // return CANVAS_WIDTH - (xIndex + 1) * X_STEP
-
-  return (xIndex + 1) * X_STEP
-}
+const xPositionForIndex = xIndex => (xIndex + 1) * X_STEP
 
 const drawCommit = (ctx, commit, yIndex) => {
+  const { offset } = commit
+
   // Thicker lines for the circles, or they look odd
   ctx.lineWidth = LINE_WIDTH * 2
 
-  var x = xPositionForIndex(commit.position), // Positioning of commit circle
-    y = yPositionForIndex(yIndex),
-    innerRadius = COMMIT_RADIUS - LINE_WIDTH
+  const x = xPositionForIndex(offset) // Positioning of commit circle
+  const y = yPositionForIndex(yIndex)
+  const innerRadius = COMMIT_RADIUS - LINE_WIDTH
 
   ctx.fillStyle = '#ffffff'
   ctx.strokeStyle = '#000000'
@@ -57,12 +49,17 @@ const drawCommit = (ctx, commit, yIndex) => {
 }
 
 const drawRoute = (ctx, route, yIndex) => {
-  var fromX = xPositionForIndex(route.from), // Starting position for route
-    fromY = yPositionForIndex(yIndex),
-    toX = xPositionForIndex(route.to), // Ending position for route
-    toY = yPositionForIndex(yIndex + 1) // НЕ ВЕРНО!!!
+  const [from, to, branch] = route
 
-  ctx.strokeStyle = branchColor(route.branch) // Gets a colour based on the branch no.
+  // Starting position for route
+  const fromX = xPositionForIndex(from)
+  const fromY = yPositionForIndex(yIndex)
+
+  // Ending position for route
+  const toX = xPositionForIndex(to)
+  const toY = yPositionForIndex(yIndex + 1)
+
+  ctx.strokeStyle = branchColor(branch) // Gets a colour based on the branch no.
   ctx.lineWidth = LINE_WIDTH
 
   ctx.beginPath()
@@ -77,8 +74,8 @@ const drawRoute = (ctx, route, yIndex) => {
   ctx.stroke()
 }
 
-const drawGraph = (ctx, graphNodes) => {
-  graphNodes.forEach((node, yIndex) => {
+const drawGraph = (ctx, nodes) => {
+  nodes.forEach((node, yIndex) => {
     // Draw the routes for this node
     node.routes.forEach(route => drawRoute(ctx, route, yIndex))
 
@@ -86,133 +83,43 @@ const drawGraph = (ctx, graphNodes) => {
     drawCommit(ctx, node, yIndex)
   })
 }
-/*
-const graph = [
-  {
-    position: 0, // X-axis location for the commit in this row
-    routes: [
-      {
-        from: 0, // X-axis of the starting location for the branch line
-        to: 1, // X-axis for the finishing location for the branch line
-        branch: 0 // Branch number (used for colouring the line)
-      }
-    ]
-  },
-  {
-    position: 1, // X-axis location for the commit in this row
-    routes: [
-      {
-        from: 1, // X-axis of the starting location for the branch line
-        to: 1, // X-axis for the finishing location for the branch line
-        branch: 0 // Branch number (used for colouring the line)
-      }
-    ]
-  }
-  // {
-  //   position: 1, // X-axis location for the commit in this row
-  //   routes: [
-  //     {
-  //       from: 1, // X-axis of the starting location for the branch line
-  //       to: 1, // X-axis for the finishing location for the branch line
-  //       branch: 0 // Branch number (used for colouring the line)
-  //     }
-  //   ]
-  // },
-  // {
-  //   position: 0, // X-axis location for the commit in this row
-  //   routes: [
-  //     {
-  //       from: 0, // X-axis of the starting location for the branch line
-  //       to: 0, // X-axis for the finishing location for the branch line
-  //       branch: 1 // Branch number (used for colouring the line)
-  //     }
-  //   ]
-  // }
-  // {
-  //   position: 1, // X-axis location for the commit in this row
-  //   routes: [
-  //     {
-  //       from: 1, // X-axis of the starting location for the branch line
-  //       to: 1, // X-axis for the finishing location for the branch line
-  //       branch: 0 // Branch number (used for colouring the line)
-  //     }
-  //   ]
-  // }
-]
-*/
 
 const graph = [
   {
-    sha: '5fcbfdb998b69bcec729f79f346d34e8f20c642f',
+    sha: 'A',
     offset: 0,
     branch: 0,
     routes: [[0, 0, 0]]
   },
   {
-    sha: 'e8438a0217eff657ac47cec2816003c16182b653',
+    sha: 'C',
     offset: 1,
     branch: 1,
     routes: [[0, 0, 0], [1, 1, 1]]
   },
   {
-    sha: '0f2eeef1329333084a158541d80e6fc538462a48',
-    offset: 1,
-    branch: 1,
+    sha: 'B',
+    offset: 0,
+    branch: 0,
     routes: [[0, 0, 0], [1, 1, 1]]
   },
   {
-    sha: '7d8835ec29452540b646e192937de2bc1a49cbaf',
-    offset: 1,
-    branch: 1,
-    routes: [[0, 0, 0], [1, 1, 1]]
+    sha: 'F',
+    offset: 2,
+    branch: 2,
+    routes: [[0, 0, 0], [1, 1, 1], [2, 0, 2]]
   },
   {
-    sha: '01724ba5aafc3c3a5df3d43d24d7c4d2fdcb7d9c',
+    sha: 'D',
     offset: 1,
     branch: 1,
-    routes: [[0, 0, 0], [1, 1, 1]]
+    routes: [[0, 0, 0], [1, 0, 1]]
   },
   {
-    sha: '53797fdfcaa1d06a32f9abd61360fb354ed51929',
-    offset: 1,
-    branch: 1,
-    routes: [[0, 0, 0], [1, 1, 1]]
-  },
-  {
-    sha: '41ad84fa675406e30854835b2ebde8aa61e226b6',
-    offset: 1,
-    branch: 1,
-    routes: [[0, 0, 0], [1, 1, 1]]
-  },
-  {
-    sha: 'efaf2871c5e3086482b93aa2c27547a0854e000e',
-    offset: 1,
-    branch: 1,
-    routes: [[0, 0, 0], [1, 1, 1]]
-  },
-  {
-    sha: 'd50f88b728a82bb6451e0f07f1c53842c8b9aec1',
-    offset: 1,
-    branch: 1,
-    routes: [[0, 0, 0], [1, 1, 1]]
-  },
-  {
-    sha: '76708c336be8e3b094d963ce68ff5680bdd82866',
-    offset: 1,
-    branch: 1,
-    routes: [[0, 0, 0], [1, 1, 1]]
-  },
-  {
-    sha: '3d32a13255de9b37c5b0b568619d1eeebf5ab06d',
-    offset: 1,
-    branch: 1,
-    routes: [[0, 0, 0], [1, 1, 1]]
-  },
-  {
-    sha: 'f718b0207ca5212f728dd2b879d0a6515976e470',
-    offset: 1,
-    branch: 1,
-    routes: [[0, 0, 0], [1, 1, 1]]
+    sha: 'E',
+    offset: 0,
+    branch: 0,
+    routes: [[0, 0, 0]]
   }
 ]
 
@@ -224,9 +131,6 @@ export const GitLog = () => {
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-    // ctx.beginPath()
-    // ctx.arc(95, 50, 40, 0, 2 * Math.PI)
-    // ctx.stroke()
     drawGraph(ctx, graph)
   }, [])
 
