@@ -4,7 +4,7 @@ const X_STEP = 15
 const Y_STEP = 30
 
 const CANVAS_WIDTH = 512
-const CANVAS_HEIGHT = 512
+const CANVAS_HEIGHT = 1024
 const LINE_WIDTH = 2
 const COMMIT_RADIUS = 5
 
@@ -83,7 +83,7 @@ const drawGraph = (ctx, nodes) => {
     drawCommit(ctx, node, yIndex)
   })
 }
-
+/*
 const graph = [
   {
     sha: 'A',
@@ -120,6 +120,136 @@ const graph = [
     offset: 0,
     branch: 0,
     routes: [[0, 0, 0]]
+  }
+]
+*/
+
+const graph = [
+  {
+    sha: 'e0d173f9d2ece40cc21319bb9e8ee1c934a997d4',
+    offset: 0,
+    branch: 0,
+    routes: [[0, 0, 0], [0, 1, 1]]
+  },
+  {
+    sha: '0b277977ed6ea0a4a4adcf57bcfd420ed75a679c',
+    offset: 1,
+    branch: 1,
+    routes: [[0, 0, 0], [1, 1, 1], [1, 0, 0]]
+  },
+  {
+    sha: 'c4c0cbffb08e0ff69bf3289a12774a5c49e32f28',
+    offset: 0,
+    branch: 0,
+    routes: [[0, 0, 0], [1, 1, 1], [0, 2, 2]]
+  },
+  {
+    sha: 'f3c22d7490f391d2cfebf7096ba6f56c01695425',
+    offset: 2,
+    branch: 2,
+    routes: [[0, 0, 0], [1, 1, 1], [2, 2, 2]]
+  },
+  {
+    sha: '8a87915da94c7eb8f348291d7c7e102fa6d041f4',
+    offset: 0,
+    branch: 0,
+    routes: [[0, 0, 0], [1, 1, 1], [2, 2, 2], [0, 3, 3]]
+  },
+  {
+    sha: '7155f00eb096820f209bca7ddfd310df101561ae',
+    offset: 3,
+    branch: 3,
+    routes: [[0, 0, 0], [1, 1, 1], [2, 2, 2], [3, 0, 3]]
+  },
+  {
+    sha: '5a3b3fd85225695d801eae1f2508cb5bf6caa56a',
+    offset: 1,
+    branch: 1,
+    routes: [[2, 1, 2], [0, 0, 0], [1, 0, 1]]
+  },
+  {
+    sha: 'e8e3240365210045b99e1616fce021e954c54c6c',
+    offset: 0,
+    branch: 0,
+    routes: [[0, 0, 0], [1, 1, 2], [0, 2, 4]]
+  },
+  {
+    sha: 'af94fec43f3b4f242c30863e22618e04a12aa909',
+    offset: 2,
+    branch: 4,
+    routes: [[0, 0, 0], [1, 1, 2], [2, 2, 4]]
+  },
+  {
+    sha: 'e2fc5947d12f2e52c7f975de6de25d3c753822c8',
+    offset: 2,
+    branch: 4,
+    routes: [[0, 0, 0], [1, 1, 2], [2, 0, 4]]
+  },
+  {
+    sha: '30d6af421b202f5162951f52424733140ccd02b9',
+    offset: 0,
+    branch: 0,
+    routes: [[0, 0, 0], [1, 1, 2], [0, 2, 5]]
+  },
+  {
+    sha: '2f5b2df082fc5bdd6acd72e57a833d508d51eb55',
+    offset: 2,
+    branch: 5,
+    routes: [[0, 0, 0], [1, 1, 2], [2, 0, 5]]
+  },
+  {
+    sha: '08306420435b990de013f051a28efec2810cf0eb',
+    offset: 0,
+    branch: 0,
+    routes: [[0, 0, 0], [1, 1, 2], [0, 2, 6]]
+  },
+  {
+    sha: '60a72365cfedc932c66527df34c6bdd8a2e8057a',
+    offset: 2,
+    branch: 6,
+    routes: [[0, 0, 0], [1, 1, 2], [2, 2, 6]]
+  },
+  {
+    sha: '371e598b83a6cee023d9cb5597f25732cc2d3986',
+    offset: 2,
+    branch: 6,
+    routes: [[0, 0, 0], [1, 1, 2], [2, 0, 6]]
+  },
+  {
+    sha: 'c798b2fedb2e6aad7c92f9edfe85b1dda2954c94',
+    offset: 0,
+    branch: 0,
+    routes: [[0, 0, 0], [1, 1, 2], [0, 2, 7]]
+  },
+  {
+    sha: '964975c951ce0e9a8b1be72b90bf298b6bf9694e',
+    offset: 2,
+    branch: 7,
+    routes: [[0, 0, 0], [1, 1, 2], [2, 2, 7], [2, 3, 8]]
+  },
+  {
+    sha: 'fb9d6bbb5e07426913176523b216e0431095b38c',
+    offset: 0,
+    branch: 0,
+    routes: [[0, 0, 0], [1, 1, 2], [2, 2, 7], [3, 3, 8], [0, 3, 8]]
+  },
+  {
+    sha: '891c406f69190bb835b0fae68383c5772e593cb0',
+    offset: 3,
+    branch: 8,
+    routes: [[0, 0, 0], [1, 1, 2], [2, 2, 7], [3, 3, 8], [3, 0, 0]]
+  },
+  {
+    sha: '5d3fa4c6800330d91ac66142699247457bbc3d74',
+    offset: 0,
+    branch: 0,
+    routes: [[0, 0, 0], [1, 1, 2], [2, 2, 7], [3, 3, 8], [0, 4, 9]]
+  },
+  {
+    sha: 'a1fadd82de4251c3e529465869c4ea03a38aab61',
+    offset: 4,
+    branch: 9,
+    routes: [[0, 0, 0], [1, 1, 2], [2, 2, 7], [3, 3, 8], [4, 4, 9], [4, 5, 10]]
   }
 ]
 
